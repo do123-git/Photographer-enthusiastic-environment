@@ -13,7 +13,6 @@
   <img src="https://img.shields.io/badge/App%20%26%20Web-Flutter-02569B?logo=flutter&logoColor=white" alt="Flutter">
   <img src="https://img.shields.io/badge/Backend-Node.js-339933?logo=nodedotjs&logoColor=white" alt="Node.js">
   <img src="https://img.shields.io/badge/Database-SQL%20Server-CC2927?logo=microsoftsqlserver&logoColor=white" alt="SQL Server">
-  <img src="https://img.shields.io/badge/Cloud-Microsoft%20Azure-0078D4?logo=microsoftazure&logoColor=white" alt="Azure">
   <img src="https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?logo=githubactions&logoColor=white" alt="GitHub Actions">
 </p>
 
@@ -94,7 +93,7 @@ Nền tảng hoạt động như một hệ sinh thái cho nhiếp ảnh analog:
 
 **6. Chia sẻ kiến thức & cộng đồng.** Chuyên gia và thành viên giàu kinh nghiệm đăng hướng dẫn, bài kỹ thuật, review thiết bị, gợi ý lab. Người dùng thảo luận, đăng ký workshop, photowalk và cùng mở rộng kho kiến thức chung.
 
-## 🏗️ Kiến trúc hệ thống
+## Kiến trúc hệ thống
 
 Hệ thống được tách module rõ ràng giữa App, Web, Backend và Storage để dễ bảo trì và mở rộng.
 
@@ -102,7 +101,7 @@ Hệ thống được tách module rõ ràng giữa App, Web, Backend và Storag
   <img src="images/architecture.svg" alt="Kiến trúc hệ thống" width="100%">
 </p>
 
-## 🛠️ Công nghệ sử dụng
+## Công nghệ sử dụng
 
 | Thành phần | Công nghệ |
 |---|---|
@@ -110,14 +109,14 @@ Hệ thống được tách module rõ ràng giữa App, Web, Backend và Storag
 | Web Portal & Admin | Flutter Web |
 | Backend | Node.js (Express) |
 | Database | SQL Server |
-| Authentication | JWT & OAuth2 |
+| Authentication | JWT |
 | Cloud Storage | Azure Blob Storage / Firebase Storage |
 | Search Engine | Elasticsearch hoặc OpenSearch |
 | Triển khai | Microsoft Azure |
 | CI/CD | GitHub Actions |
 | Quản lý mã nguồn | GitHub |
 
-## 🔐 Yêu cầu phi chức năng
+## Yêu cầu phi chức năng
 
 - Xác thực bằng **JWT** kết hợp **phân quyền theo vai trò (RBAC)**.
 - **Cloud storage** cho file scan, có sao lưu tự động và cơ chế phục hồi.
@@ -125,7 +124,7 @@ Hệ thống được tách module rõ ràng giữa App, Web, Backend và Storag
 - **RESTful API** hỗ trợ tích hợp cổng thanh toán, đối tác logistics và các dịch vụ nhiếp ảnh trong tương lai.
 - **Sẵn sàng cao, mở rộng tốt, nhất quán dữ liệu** cho nền tảng multi-tenant phục vụ nhiều Film Lab cùng lúc.
 
-## 📦 Sản phẩm đầu ra
+## Sản phẩm đầu ra
 
 - [ ] Ứng dụng mobile (Flutter) cho nhiếp ảnh gia
 - [ ] Web portal (Flutter Web) quản lý cho Film Lab
@@ -135,7 +134,7 @@ Hệ thống được tách module rõ ràng giữa App, Web, Backend và Storag
 - [ ] Hệ thống quản lý Digital Film Archive
 - [ ] Backend services (Node.js) & cơ sở dữ liệu SQL Server
 
-## 🗓️ Kế hoạch thực hiện
+## Kế hoạch thực hiện
 
 | # | Công việc |
 |---|---|
@@ -143,24 +142,6 @@ Hệ thống được tách module rõ ràng giữa App, Web, Backend và Storag
 | 2 | Phát triển ứng dụng Flutter cho nhiếp ảnh gia: đặt dịch vụ, theo dõi đơn, digital archive, marketplace, cộng đồng |
 | 3 | Phát triển web portal (Flutter Web) cho chủ Film Lab và quản trị viên: quản lý dịch vụ, theo dõi quy trình, quản lý khách hàng, báo cáo, kiểm duyệt cộng đồng |
 | 4 | Tích hợp hệ thống (thanh toán, logistics), kiểm thử, triển khai, tối ưu hiệu năng, hoàn thiện tài liệu kỹ thuật và báo cáo Capstone |
-
-## 🚀 Bắt đầu
-
-```bash
-# Clone repository
-git clone https://github.com/foxyy163/Nh-m-8.git
-cd Nh-m-8
-
-# Lấy thay đổi mới nhất trước khi làm việc
-git pull
-
-# Sau khi sửa code
-git add .
-git commit -m "Mô tả thay đổi"
-git push
-```
-
-> Hướng dẫn cài đặt và chạy từng thành phần (Backend, Mobile, Web) sẽ được bổ sung khi các module được phát triển.
 
 ## 🙌 Thành viên nhóm
 
