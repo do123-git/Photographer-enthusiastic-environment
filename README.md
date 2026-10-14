@@ -110,7 +110,6 @@ Hệ thống được tách module rõ ràng giữa App, Web, Backend và Storag
 | Backend | Node.js (Express) |
 | Database | SQL Server |
 | Authentication | JWT |
-| Cloud Storage | Azure Blob Storage / Firebase Storage |
 | Search Engine | Elasticsearch hoặc OpenSearch |
 | Triển khai | Microsoft Azure |
 | CI/CD | GitHub Actions |
