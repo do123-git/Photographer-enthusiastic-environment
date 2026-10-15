@@ -110,8 +110,8 @@ Hệ thống được tách module rõ ràng giữa App, Web, Backend và Storag
 | Backend | Node.js (Express) |
 | Database | SQL Server |
 | Authentication | JWT |
-| Search Engine | Elasticsearch hoặc OpenSearch |
-| Triển khai | Microsoft Azure |
+| Search Engine | Elasticsearch |
+| Triển khai | Netlify and Render |
 | CI/CD | GitHub Actions |
 | Quản lý mã nguồn | GitHub |
 
@@ -153,4 +153,4 @@ Hệ thống được tách module rõ ràng giữa App, Web, Backend và Storag
 
 ---
 
-<p align="center"><i>Nhóm 8 · Capstone Project</i></p>
+<p align="center"><i>Nhóm 8 · Term Project</i></p>
