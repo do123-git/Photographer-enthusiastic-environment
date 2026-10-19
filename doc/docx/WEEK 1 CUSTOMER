@@ -75,4 +75,27 @@ Bước 4: Phân tích Thanh toán và Theo dõi đơn hàng (#6)
 •	Phương thức thanh toán: Online (VNPay/Momo) & COD.
 •	Trạng thái đơn: Pending Payment -> Pending Confirmation -> Processing -> Completed -> Delivering -> Delivered / Cancelled.
 •	Quy tắc hủy: Chỉ hủy trước khi Lab xử lý. Hoàn tiền qua ví/cổng thanh toán trong 3-5 ngày làm việc.
-
+________________________________________
+Bước 5 - Quản lý Digital Film Archive (#7)
+Mục tiêu: Hiểu cách khách hàng lưu trữ, quản lý và khai thác các file ảnh scan sau khi nhận từ Film Lab.
+1. Khách hàng nhận file scan bằng cách nào?
+•	File scan được Lab upload lên Cloud Storage.
+•	Khách nhận thông báo (Push Notification) khi file sẵn sàng.
+•	Khách có thể tải trực tiếp về thiết bị hoặc lưu thẳng vào kho lưu trữ trên App (Digital Film Archive).
+2. Thông tin Metadata nào cần đi kèm với ảnh?
+•	Từ Film Lab: Tên Lab, ngày scan, độ phân giải, định dạng file (JPG/TIFF).
+•	Từ Khách hàng (tự nhập/thêm vào): Loại film (VD: Kodak Portra 400), Máy ảnh (VD: Canon AE-1), Ống kính, Ngày chụp, Địa điểm, Cách xử lý (Push/Pull), Ghi chú cá nhân.
+3. Các chức năng quản lý Archive:
+•	Xem ảnh (Gallery View): Xem dạng lưới hoặc toàn màn hình.
+•	Sắp xếp & Lọc: Theo ngày chụp, theo loại film, theo Lab, theo máy ảnh.
+•	Tạo Album/Bộ sưu tập: Gom nhóm ảnh theo dự án hoặc chuyến đi.
+•	Chia sẻ: Tạo link chia sẻ công khai hoặc riêng tư (có mật khẩu) cho ảnh.
+•	Chỉnh sửa: Xóa ảnh, sửa metadata.
+4. Dung lượng lưu trữ và bảo mật:
+•	Có giới hạn dung lượng không? (Cần quy định gói Free vs. Premium).
+•	Ảnh gốc có bị nén không? (Cam kết lưu trữ file gốc chất lượng cao).
+•	Bảo mật: Chỉ chủ tài khoản mới xem được ảnh mặc định (riêng tư).
+Kết quả cần ghi (Tài liệu hóa):
+•	Chức năng Archive: Upload tự động, Quản lý album, Gắn metadata, Chia sẻ, Tìm kiếm nâng cao.
+•	Dữ liệu Metadata: Các trường thông tin bắt buộc/tùy chọn.
+•	Quy tắc lưu trữ: Định dạng file hỗ trợ, giới hạn dung lượng, thời gian lưu trữ.
