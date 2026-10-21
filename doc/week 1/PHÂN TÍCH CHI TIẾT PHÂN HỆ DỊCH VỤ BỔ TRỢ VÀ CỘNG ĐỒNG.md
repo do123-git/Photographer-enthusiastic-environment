@@ -112,13 +112,13 @@ Phê duyệt hoàn tiền và thực hiện giao dịch hoàn tiền là **hai b
 
 ## 4. Marketplace
 
-### 4.1 Phạm vi trong README
-
-Mô tả tổng quan dự án có đề cập Marketplace. Đề xuất chia phạm vi:
-- **Phase 1 (MVP):** Bảng tin C2C kết nối người mua và người bán: đăng tin, tìm kiếm, liên hệ giao dịch bên ngoài nền tảng.
-- **Phase 2 (mở rộng):** Quản lý đơn mua bán, thanh toán trực tuyến, giao hàng, đánh giá giao dịch, giải quyết tranh chấp.
-
-> Phạm vi cuối cùng cần xác nhận với README và nhóm phát triển.
+### 4.1 Phạm vi hệ thống
+Hệ thống sàn giao dịch thiết bị analog kết nối thành viên cộng đồng:
+- Đăng tin mua bán, trao đổi máy ảnh analog, ống kính, film và phụ kiện.
+- Tiền kiểm tin đăng 100% bởi Admin trước khi hiển thị công khai.
+- Tìm kiếm nâng cao theo danh mục, khu vực, tầm giá.
+- Liên hệ trực tiếp giữa người mua và người bán qua Số điện thoại / Zalo (không tích hợp hệ thống chat riêng).
+- Đặt mua, thỏa thuận giao nhận (trực tiếp hoặc COD) và đánh giá uy tín người bán.
 
 ### 4.2 Ai được bán sản phẩm?
 
@@ -127,15 +127,16 @@ Mô tả tổng quan dự án có đề cập Marketplace. Đề xuất chia ph�
 | Cá nhân (Customer/Photographer), giao dịch C2C | Xác thực tài khoản (Email, Số điện thoại); đăng bán máy ảnh cũ, ống kính |
 | Film Lab Owner & Chuyên gia (Verified Sellers), giao dịch B2C | Film mới/đã hết hạn, hóa chất, phụ kiện, máy ảnh đã qua kiểm định kỹ thuật |
 
-### 4.3 Thông tin sản phẩm, quy trình mua và thanh toán
+### 4.3 Thông tin sản phẩm, quy trình mua và liên hệ
 
 **Thông tin sản phẩm bắt buộc:**
 - Tên sản phẩm và danh mục (máy ảnh SLR / Rangefinder / Compact, ống kính, film 135 / 120, phụ kiện).
 - Tình trạng vật lý: Mới 100%, Like New, Đã qua sử dụng, Hoạt động tốt / Có lỗi nhẹ (mô tả rõ đo sáng, lăng kính, buồng film).
 - Hình ảnh thực tế: tối thiểu **3 ảnh** chi tiết các góc cạnh.
-- Giá bán niêm yết, địa điểm giao dịch.
+- Giá bán niêm yết, địa điểm giao dịch, số điện thoại / Zalo liên hệ.
 
-**Quy trình mua và thanh toán:**
-1. Người mua xem tin đăng → bấm **"Nhắn tin cho Người bán"** để trao đổi tình trạng thiết bị.
-2. Người mua bấm **"Đặt mua"** trên tin đăng.
-3. (MVP Capstone) Giao dịch trực tiếp (thỏa thuận nhận hàng / COD) hoặc qua thanh toán trung gian tạm giữ (**Escrow**), tùy hình thức đăng ký của người bán.
+**Quy trình mua và liên hệ:**
+1. Người mua xem tin đăng → bấm nút **"Liên hệ qua SĐT / Zalo"** để gọi điện hoặc nhắn tin Zalo trực tiếp trao đổi tình trạng thiết bị.
+2. Người mua bấm **"Đặt mua"** / liên hệ trên tin đăng.
+3. Giao dịch trực tiếp (hai bên tự thỏa thuận nhận hàng trực tiếp hoặc gửi chuyển phát COD bưu điện).
+4. Sau khi hoàn tất giao dịch, người mua đánh giá số sao và nhận xét uy tín người bán.

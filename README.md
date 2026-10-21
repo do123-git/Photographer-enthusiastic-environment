@@ -89,7 +89,7 @@ Nền tảng hoạt động như một hệ sinh thái cho nhiếp ảnh analog:
 
 **4. Giao file số & quản lý Archive.** Khi hoàn tất, lab upload file scan lên cloud storage an toàn. Khách nhận thông báo, xem, tải về, sắp xếp và lưu trữ lâu dài trong Digital Film Archive cùng đầy đủ metadata.
 
-**5. Marketplace & trao đổi thiết bị.** Thành viên đăng bài mua, bán, trao đổi máy ảnh analog, film, ống kính, phụ kiện. Có quản lý tin đăng, tìm kiếm nâng cao, đánh giá người bán, theo dõi giao dịch và nhắn tin giữa người mua và người bán.
+**5. Marketplace & trao đổi thiết bị.** Thành viên đăng bài mua, bán, trao đổi máy ảnh analog, film, ống kính, phụ kiện. Có quản lý tin đăng, tìm kiếm nâng cao, đánh giá người bán, theo dõi giao dịch và liên hệ trực tiếp qua số điện thoại/Zalo giữa người mua và người bán.
 
 **6. Chia sẻ kiến thức & cộng đồng.** Chuyên gia và thành viên giàu kinh nghiệm đăng hướng dẫn, bài kỹ thuật, review thiết bị, gợi ý lab. Người dùng thảo luận, đăng ký workshop, photowalk và cùng mở rộng kho kiến thức chung.
 

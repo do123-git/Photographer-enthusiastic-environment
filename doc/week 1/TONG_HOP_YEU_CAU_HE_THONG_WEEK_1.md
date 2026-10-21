@@ -11,7 +11,7 @@
 3. [Phân hệ Chuyên gia nhiếp ảnh & Cộng đồng (Photography Expert & Community)](#3-phân-hệ-chuyên-gia-nhiếp-ảnh--cộng-đồng-photography-expert--community)
 4. [Phân hệ Đối tác vận chuyển (Delivery Partner)](#4-phân-hệ-đối-tác-vận-chuyển-delivery-partner)
 5. [Phân hệ Quản trị hệ thống (System Administrator)](#5-phân-hệ-quản-trị-hệ-thống-system-administrator)
-6. [Sàn trao đổi thiết bị (Marketplace - Chức năng mở rộng)](#6-sàn-trao-đổi-thiết-bị-marketplace---chức-năng-mở-rộng)
+6. [Sàn trao đổi thiết bị (Marketplace)](#6-sàn-trao-đổi-thiết-bị-marketplace)
 7. [Ma trận phân quyền hệ thống (RBAC)](#7-ma-trận-phân-quyền-hệ-thống-rbac)
 
 ---
@@ -36,7 +36,7 @@
 ### 1.2 Tìm kiếm và So sánh Film Lab
 * **Tiêu chí tìm kiếm:**
   * Theo tên: Thanh tìm kiếm (Search Bar) theo tên tiệm Lab.
-  * Theo vị trí: Định vị GPS gần nhất, lọc theo Tỉnh/Thành phố, Quận/Huyện.
+  * Theo vị trí: Tìm theo Tỉnh/Thành phố, Quận/Huyện.
   * Theo dịch vụ: Tráng film màu (C-41), tráng đen trắng (B&W), film điện ảnh (ECN-2), film slide (E-6), scan độ phân giải cao, in ảnh, hỗ trợ film 135 (35mm), 120 (Medium Format), 110.
 * **Tiêu chí so sánh:**
   * Giá cả dịch vụ (sắp xếp từ thấp đến cao).
@@ -62,7 +62,7 @@
             + Phí giao nhận (nếu có)
   ```
 
-### 1.4 Thanh toán và Theo dõi đơn hàng
+### 1.4 Thanh toán, Chuỗi trạng thái đơn hàng & Hoàn tiền
 * **Phương thức thanh toán:**
   * Online (bắt buộc với đơn từ xa/giao nhận): Cổng thanh toán (VNPAY / Momo / Thẻ ngân hàng / QR Code).
   * COD (Tiền mặt): Chỉ áp dụng khi khách tự mang film đến gửi và nhận/thanh toán trực tiếp tại quầy của Film Lab.
@@ -70,18 +70,23 @@
   * Nếu thanh toán thất bại, hệ thống báo lỗi giao dịch cụ thể.
   * Đơn hàng được giữ ở trạng thái `Chờ thanh toán (Pending Payment)`; khách có thể vào lại mục đơn hàng bấm **"Thanh toán lại"**.
   * Hệ thống tự động hủy đơn rác nếu quá **24 giờ** không hoàn tất thanh toán.
-* **Theo dõi trạng thái đơn hàng:**
-  * Khách theo dõi tại mục **"Đơn hàng của tôi"** trên ứng dụng và nhận thông báo đẩy (Push Notification) theo thời gian thực.
-  * **Chuỗi trạng thái đơn hàng:**  
-    `Chờ thanh toán` -> `Chờ Lab xác nhận` -> `Đang xử lý (Tráng & Scan)` -> `Hoàn thành (Đã trả file scan vào Archive)` -> `Đang giao (nếu có ship film/ảnh)` -> `Đã nhận / Đóng đơn` (hoặc `Đã hủy`).
+* **Theo dõi trạng thái đơn hàng thời gian thực:**
+  * Khách theo dõi tại mục **"Đơn hàng của tôi"** trên ứng dụng và nhận thông báo đẩy (Push Notification) theo từng bước.
+  * **Chuỗi trạng thái đơn hàng đầy đủ phản ánh đúng thực tế vận chuyển:**  
+    `Chờ thanh toán (Pending Payment)` -> `Chờ Lab xác nhận (Pending Confirmation)` -> `[Đang lấy film (Pickup In Progress - nếu chọn shipper)]` -> `Đã nhận film tại Lab (Received at Lab)` -> `Đang xử lý (Processing - Tráng & Scan)` -> `Hoàn thành (Completed - Đã nạp file scan vào Archive)` -> `[Đang giao hàng (Delivering - nếu có ship film/ảnh)]` -> `Đã nhận / Đóng đơn (Delivered)` (hoặc `Đã hủy - Cancelled`).
+* **Quy định hủy đơn:**
+  * Khách hàng **chỉ được phép hủy đơn** (và nhận lại 100% tiền) khi đơn ở trạng thái `Chờ Lab xác nhận` — tức khi shipper chưa đến lấy và Lab chưa nhận film thực tế.
+  * Khi đơn đã chuyển sang `Đang lấy film` hoặc `Đã nhận film tại Lab`, khách không thể tự ý hủy đơn thông thường.
+* **Chính sách hoàn tiền & Nơi tra cứu:**
+  * *Điều kiện hoàn tiền:* Hủy đơn hợp lệ khi Chờ xác nhận; Lab từ chối hoặc hủy đơn do sự cố máy móc; Lab làm thất lạc/hư hỏng film do lỗi kỹ thuật; cuộn film bị trắng (Blank Film - hoàn 100% phí scan/in, giữ lại phí tráng); trừ tiền trùng lặp qua cổng thanh toán.
+  * *Tiến độ hoàn tiền:* Sau khi được phê duyệt, tiền hoàn thẳng về tài khoản/ví ban đầu trong vòng **3–5 ngày làm việc**.
+  * *Tra cứu tiến độ hoàn tiền:* Khách hàng và Film Lab có thể theo dõi trực tiếp trạng thái hoàn tiền ngay tại mục chi tiết đơn hàng (các trạng thái: Đang xử lý hoàn tiền -> Đã hoàn tiền thành công / Từ chối hoàn tiền).
 
-### 1.5 Quy định hủy đơn và Hoàn tiền
-* **Điều kiện hủy đơn:** Khách hàng chỉ được phép hủy đơn (và nhận lại 100% tiền) khi đơn ở trạng thái `Chờ Lab xác nhận` — tức Lab chưa nhận film thực tế và chưa cử shipper đi lấy. Khi film đã được gửi đến Lab hoặc đã đưa vào tráng hóa chất thì không được hủy thông thường.
-* **Hoàn tiền khi cuộn film bị trắng (Blank Film):** Nếu cuộn phim bị trắng do lỗi kỹ thuật từ phía máy ảnh của khách, Lab chụp ảnh dải phim trắng làm bằng chứng; hệ thống tự động hoàn trả 100% chi phí scan và in ấn, chỉ giữ lại chi phí hóa chất tráng.
-
-### 1.6 Quản lý kho lưu trữ số (Digital Film Archive)
+### 1.5 Tải và Quản lý kho lưu trữ số (Digital Film Archive)
 * **Nguyên tắc cốt lõi:** Kết quả chính của dịch vụ là **File scan số** chất lượng cao được tải lên Cloud Storage an toàn và tự động nạp vào **Digital Film Archive** của khách hàng; việc giao nhận vật lý chỉ phát sinh khi khách có nhu cầu.
-* **Nhận file scan:** Lab upload file scan lên cloud storage, hệ thống tự động đồng bộ vào Archive và gửi thông báo đẩy để khách xem, tải file gốc chất lượng cao không nén.
+* **Quy tắc lưu trữ:**
+  * *Lưu trữ tạm tại Lab:* File scan trên hệ thống đám mây của tiệm được cam kết lưu trữ tối thiểu **60 ngày** để khách tải về máy tính/điện thoại; cuộn film âm bản gốc giữ tại tiệm 15–30 ngày để khách đến nhận lại (nếu có nhu cầu).
+  * *Kho lưu trữ cá nhân (Digital Film Archive):* Nơi lưu trữ lâu dài ảnh scan gốc chất lượng cao không bị nén, gắn liền với tài khoản của khách hàng để xem lại, tải về và quản lý bộ sưu tập ảnh bất cứ lúc nào.
 * **Quyền riêng tư mặc định:** Kho ảnh mặc định ở chế độ riêng tư, chỉ chủ tài khoản mới xem được ảnh. Quản trị viên không có quyền truy cập ảnh của khách trừ khi có khiếu nại tranh chấp.
 * **Hệ thống Metadata đi kèm ảnh:**
   * Tự động từ Lab: Tên Film Lab, ngày scan, thông số scan (máy scan, độ phân giải, định dạng JPG/TIFF).
@@ -93,8 +98,8 @@
   * Chia sẻ Album qua liên kết (chế độ công khai hoặc riêng tư có mật khẩu bảo vệ).
   * Chỉnh sửa: Sửa thông tin metadata, tải file gốc, hoặc xóa ảnh khỏi kho cá nhân.
 
-### 1.7 Đánh giá Film Lab
-* Sau khi đơn hàng hoàn tất, khách hàng được chấm điểm (1–5 sao) và viết nhận xét công khai về chất lượng màu sắc, độ sạch bụi và dịch vụ của Lab.
+### 1.6 Đánh giá Film Lab
+* Sau khi đơn hàng hoàn tất, khách hàng được chấm điểm (1–5 sao) và viết nhận xét công khai về chất lượng màu sắc, độ sạch bụi và thái độ phục vụ của Lab.
 
 ---
 
@@ -104,21 +109,18 @@
 * Cấu hình hồ sơ công khai: Tên tiệm, logo, địa chỉ các chi nhánh, giờ mở cửa, số điện thoại, email, mô tả tiệm.
 * Danh mục kỹ thuật hỗ trợ: Khổ film (135, 120, 110, APS), quy trình xử lý (C-41, BW, E-6, ECN-2), chính sách lưu trữ file và âm bản gốc.
 
-### 2.2 Phân quyền nội bộ Lab & Quản lý bảng giá dịch vụ
-* **Phân quyền chặt chẽ trong nội bộ tiệm:**
-  * **Chủ tiệm (Lab Owner):** Toàn quyền cấu hình bảng giá, chính sách tiệm, thêm/sửa/tạm dừng dịch vụ.
-  * **Quản lý tiệm (Lab Manager):** Được chủ lab ủy quyền sửa mô tả dịch vụ nhưng không được xóa vĩnh viễn dịch vụ.
-  * **Nhân viên vận hành (Lab Operator):** Không có quyền sửa giá hoặc danh mục dịch vụ; chỉ cập nhật trạng thái đơn hàng trên bảng Kanban và thực hiện thao tác nghiệp vụ.
-* **Quy tắc thay đổi giá:** Chỉ Lab Owner mới được phép đổi giá; mọi thay đổi giá đều lưu lại nhật ký hệ thống (Audit Trail: Dịch vụ nào, Giá cũ -> Giá mới, Ai sửa, Lúc mấy giờ, Lý do).
-* **Cơ chế tạm ngưng dịch vụ:** Sử dụng trạng thái `PAUSED` (tạm ẩn khỏi danh sách tìm kiếm) khi quá tải hoặc thiếu hóa chất; tuyệt đối không xóa dịch vụ để đảm bảo dữ liệu đơn cũ không bị gián đoạn.
-* **Bảo lưu giá đơn cũ (Price Snapshotting):** Giá dịch vụ và phụ phí được "chụp lại" nguyên trạng vào bảng `Order_Items` tại thời điểm khách đặt hàng. Mọi thay đổi giá sau đó của Lab không làm thay đổi giá của đơn hàng cũ.
+### 2.2 Quản lý danh mục và bảng giá dịch vụ
+* **Quyền quản trị dịch vụ:** Tài khoản Film Lab (Lab Owner) toàn quyền cấu hình, cập nhật bảng giá và các gói dịch vụ của tiệm.
+* **Quy tắc thay đổi giá:** Mọi thay đổi giá đều được hệ thống tự động ghi nhật ký (Audit Trail: Tên dịch vụ, Giá cũ -> Giá mới, Thời gian thay đổi, Lý do).
+* **Cơ chế tạm ngưng dịch vụ:** Sử dụng trạng thái `PAUSED` (tạm ẩn khỏi danh sách tìm kiếm) khi tiệm quá tải hoặc tạm thiếu hóa chất; không xóa dịch vụ để đảm bảo dữ liệu và lịch sử các đơn hàng cũ không bị gián đoạn.
+* **Bảo lưu giá đơn cũ (Price Snapshotting):** Giá dịch vụ và phụ phí được ghi nhận nguyên trạng theo thời điểm khách tạo đơn; việc thay đổi giá sau đó của Lab không làm thay đổi giá trị của đơn hàng đã đặt.
 * **Xử lý phụ phí phát sinh thực tế:** Nếu nhận film thực tế phát hiện cần xử lý thêm (film Cine ECN-2 tẩy muội than, film outdate cần Push +2 stop) -> Lab gửi yêu cầu *"Đề xuất phụ phí"*, khách xác nhận đồng ý thanh toán thêm thì Lab mới bắt đầu xử lý.
 
 ### 2.3 Nhận, xác nhận và cập nhật đơn hàng
-* **Nhận thông báo đơn mới:** Đơn trực tuyến vào hàng đợi sản xuất tức thời trên bảng Kanban; đơn gửi từ xa qua bưu kiện được quét mã tiếp nhận.
-* **Xác nhận đơn qua 2 bước độc lập (Lab Operator thực hiện):**
-  1. *Bước 1 (Tiếp nhận thông tin):* Xác nhận đơn vào hệ thống khi khách đặt online.
-  2. *Bước 2 (Tiếp nhận phim thực tế + thanh toán):* Cầm phim trên tay và xác nhận thanh toán hoàn tất -> Chuyển đơn sang `Đang xử lý (Processing)`.
+* **Nhận thông báo đơn mới:** Đơn trực tuyến được đưa vào danh sách xử lý đơn hàng tức thời của tiệm; đơn gửi từ xa được quét mã tiếp nhận.
+* **Xác nhận đơn qua 2 bước:**
+  1. *Bước 1 (Tiếp nhận thông tin):* Xác nhận đơn trên hệ thống khi khách đặt online.
+  2. *Bước 2 (Tiếp nhận phim thực tế + thanh toán):* Nhận phim thực tế và xác nhận thanh toán hoàn tất -> Chuyển đơn sang `Đang xử lý (Processing)`.
 * **Thông tin cần ghi nhận khi nhận film thực tế:** Mã đơn (Order ID), tình trạng cuộn film (nguyên vẹn, cắt dở, ẩm ướt, móp méo), ghi chú kỹ thuật từ khách, số lượng cuộn thực tế, người giao film, ảnh chụp tình trạng film làm bằng chứng.
 * **Xử lý các ca bất thường khi nhận film:**
   * Lệch số lượng hoặc film ẩm ướt/hư hại: Chụp ảnh lưu bằng chứng, báo khách xác nhận trước khi xử lý.
@@ -128,10 +130,10 @@
 
 ### 2.4 Tải file scan và trả kết quả
 * **Thời điểm tải file scan:** Diễn ra sau khi hoàn tất công đoạn Scan và Kiểm tra chất lượng (QC) đạt chuẩn (không lệch frame, không sọc sensor, đủ số kiểu, đúng chuẩn JPG/TIFF).
-* **Cơ chế gắn file và bảo mật:** File scan được đóng gói theo cú pháp `{OrderID}_{RollID}_{CustomerPhone}_{LoaiFilm}.zip`, tải qua **Pre-signed URL** lên Cloud Storage an toàn. Hệ thống tự động gửi Push Notification và Email thông báo cho khách.
+* **Cơ chế tải file và bảo mật:** File scan chất lượng cao được tải lên Cloud Storage an toàn và tự động nạp thẳng vào Digital Film Archive của khách hàng; hệ thống tự động gửi thông báo đẩy (Push Notification) và Email cho khách.
 * **Xử lý tình huống bất thường khi tải file:**
-  * *Upload thất bại / rớt mạng:* Áp dụng cơ chế **Resumable Upload**; nhân viên bấm "Thử lại" để tải tiếp đoạn bị gián đoạn.
-  * *Tải nhầm file scan của khách khác:* Cơ chế **Thu hồi & Ghi đè (Revoke & Replace)** trong vòng 24 giờ; thu hồi link cũ trong Archive của khách bị nhầm, cập nhật bản đúng, ghi Audit Log và gửi thông báo đính chính cho khách.
+  * *Upload thất bại / rớt mạng:* Hỗ trợ cơ chế tải tiếp đoạn bị gián đoạn (Resumable Upload), tiệm bấm "Thử lại" để tiếp tục mà không phải tải lại từ đầu.
+  * *Tải nhầm file scan của khách khác:* Cơ chế thu hồi và thay thế file chuẩn xác trong vòng 24 giờ; tự động thu hồi ảnh nhầm trong Archive của khách, cập nhật ảnh đúng, ghi nhật ký kiểm toán và gửi thông báo đính chính cho khách.
 
 ### 2.5 Lịch sử đơn hàng và Báo cáo vận hành
 * **Dữ liệu Lab xem lại ở đơn đã hoàn thành:**
@@ -140,7 +142,6 @@
   * Dòng thời gian nhật ký xử lý (Timeline SLA: giờ nhận, giờ tráng, giờ scan, giờ tải file).
   * Doanh thu thực nhận của đơn hàng.
   * Bằng chứng ảnh QC lúc nhận film và đánh giá sao, nhận xét của khách.
-  * Vị trí lưu giữ âm bản vật lý tại tiệm (nếu khách chưa lấy).
 * **Báo cáo vận hành:** Thống kê số lượng cuộn film đã xử lý theo ngày/tuần/tháng, tỷ lệ hoàn thành đúng cam kết SLA.
 
 ---
@@ -150,15 +151,18 @@
 ### 3.1 Đăng bài hướng dẫn và Chia sẻ kỹ thuật
 * **Đối tượng đăng bài:** Người dùng đã xác thực (Customer, Photography Expert, Film Lab Owner) đều có quyền đăng bài chia sẻ và bình luận tương tác.
 * **Quyền tác giả:** Tác giả có toàn quyền chỉnh sửa hoặc xóa bài viết, bình luận do mình tạo.
-* **Chuyên gia nhiếp ảnh (Photography Expert):** Được cấp huy hiệu chứng nhận (Verified Badge); bài viết chuyên môn được ưu tiên hiển thị (kỹ thuật đo sáng film slide, kinh nghiệm chụp đêm, review các dòng film/ống kính và đánh giá chất lượng Film Lab).
+* **Chuyên gia nhiếp ảnh (Photography Expert):** Được Admin thẩm định và cấp huy hiệu chứng nhận (Verified Badge); bài viết chuyên môn được ưu tiên hiển thị (kỹ thuật đo sáng film slide, kinh nghiệm chụp đêm, review các dòng film/ống kính và đánh giá chất lượng Film Lab).
 
 ### 3.2 Tổ chức sự kiện Workshop & Photowalk
 * Chuyên gia có thể tạo và quản lý sự kiện: Buổi chụp ảnh thực tế ngoài trời (Photowalk), buổi hướng dẫn tự tráng film đen trắng tại nhà (Workshop).
 * Thành viên cộng đồng xem thông tin chi tiết, đăng ký tham gia và thảo luận trực tiếp trong trang sự kiện.
 
-### 3.3 Thảo luận cộng đồng & Báo cáo vi phạm
-* Thành viên tham gia bình luận dưới bài viết, hỏi đáp chuyên môn và chia sẻ ảnh chụp từ kho lưu trữ cá nhân.
-* **Báo cáo vi phạm phía người dùng:** Mỗi bài viết và bình luận đều có nút **"Báo cáo vi phạm"** để người dùng báo cáo các nội dung spam, xúc phạm, sai lệch kỹ thuật hoặc vi phạm quy định cộng đồng.
+### 3.3 Tương tác cộng đồng & Báo cáo vi phạm
+* **Tính năng tương tác:**
+  * **Like:** Bày tỏ yêu thích đối với bài viết, hình ảnh chia sẻ của thành viên khác.
+  * **Bookmark:** Lưu trữ các bài viết kỹ thuật, bài hướng dẫn hay vào danh mục cá nhân để tiện đọc lại khi cần.
+  * **Follow:** Theo dõi các Chuyên gia nhiếp ảnh hoặc Film Lab yêu thích để nhận thông báo sớm nhất khi có bài viết hoặc sự kiện mới.
+* **Báo cáo vi phạm phía người dùng:** Mỗi bài viết và bình luận đều có nút **"Báo cáo vi phạm"** để người dùng báo cáo các nội dung spam, ngôn từ xúc phạm, thông tin sai lệch kỹ thuật hoặc vi phạm quy định cộng đồng.
 
 ---
 
@@ -167,10 +171,10 @@
 ### 4.1 Quy trình giao nhận film hai chiều
 * **Chiều 1 (Pickup film từ khách đến Lab):**
   * Khách đặt đơn chọn yêu cầu giao nhận -> Hệ thống điều phối đơn vị vận chuyển đối tác (Ahamove, Lalamove hoặc shipper của tiệm).
-  * Shipper đến địa chỉ của khách nhận cuộn film -> Giao film đến tận tay Film Lab.
+  * Shipper đến địa chỉ của khách nhận cuộn film -> Giao film đến tận tay Film Lab. Trạng thái đơn cập nhật: `Đang lấy film` -> `Đã nhận film tại Lab`.
 * **Chiều 2 (Trả film đã xử lý cho khách):**
   * Diễn ra khi khách có nhu cầu nhận lại cuộn film đã tráng (âm bản) hoặc các bản ảnh in vật lý.
-  * Lab đóng gói film/ảnh -> Bàn giao cho Shipper giao trả về địa chỉ của khách.
+  * Lab đóng gói film/ảnh -> Bàn giao cho Shipper giao trả về địa chỉ của khách. Trạng thái đơn cập nhật: `Đang giao hàng` -> `Đã nhận`.
 * **Dữ liệu vận chuyển lưu trữ:** Địa chỉ lấy và giao hàng, số điện thoại người gửi/nhận, phí vận chuyển, thời gian hẹn lấy và thời gian giao dự kiến, mã vận đơn (Tracking Code), trạng thái vận chuyển thời gian thực.
 
 ### 4.2 Xử lý các tình huống giao hàng thất bại
@@ -187,7 +191,7 @@
   * Lọc theo trạng thái: Chờ duyệt (Pending), Hoạt động (Active), Bị khóa (Banned).
   * Tìm kiếm nhanh: Theo Email, Số điện thoại hoặc Tên người dùng / Tên tiệm Lab.
 * **Các trạng thái tài khoản:**
-  * `Chờ duyệt (Pending)`: Chỉ áp dụng cho tài khoản Film Lab mới đăng ký tiệm.
+  * `Chờ duyệt (Pending)`: Áp dụng cho tài khoản Film Lab mới đăng ký tiệm, hoặc Chuyên gia / Đơn vị vận chuyển đang chờ thẩm định.
   * `Hoạt động (Active)`: Hoạt động bình thường theo đúng phân quyền.
   * `Bị khóa (Banned)`: Bị chặn đăng nhập và ngừng mọi giao dịch.
 * **Lý do khóa tài khoản cụ thể:**
@@ -195,12 +199,12 @@
   * *Film Lab:* Làm mất/hỏng film của khách nhiều lần mà không đền bù, dịch vụ bị khiếu nại quá kém, hoặc có hành vi gian lận.
 * **Thông báo và xem xét lại:** Người dùng bị khóa nhận email nêu rõ lý do; màn hình đăng nhập hiển thị thông báo kèm nút **"Gửi yêu cầu xem xét lại"** để Admin phúc thẩm nếu có nhầm lẫn.
 
-### 5.2 Thẩm định và Duyệt hồ sơ Film Lab
-* **Hồ sơ đăng ký của tiệm:** Tên tiệm, địa chỉ cụ thể, số điện thoại liên hệ, Fanpage/Website, họ tên chủ tiệm & ảnh chụp CCCD, danh mục các loại film nhận tráng, hình ảnh không gian tiệm và hệ thống máy móc tráng/scan.
-* **Quy trình thẩm định:**
-  * Admin kiểm tra tính có thật của địa chỉ, số điện thoại và năng lực thiết bị thực tế để phòng ngừa lab "ma".
-  * *Đạt yêu cầu:* Bấm "Duyệt" -> Tài khoản Lab chuyển sang `Active`, tiệm chính thức xuất hiện trên ứng dụng.
-  * *Chưa đạt:* Bấm "Từ chối" kèm ghi chú ngắn nêu rõ lý do để Lab bổ sung thông tin.
+### 5.2 Thẩm định và Duyệt đối tác (Film Lab, Chuyên gia, Đơn vị vận chuyển)
+* **Thẩm định Film Lab:**
+  * Kiểm tra hồ sơ: Tên tiệm, địa chỉ cụ thể, số điện thoại liên hệ, Fanpage/Website, họ tên chủ tiệm & ảnh chụp CCCD, danh mục film nhận tráng, hình ảnh không gian tiệm và hệ thống máy móc tráng/scan.
+  * Admin kiểm tra tính có thật để phòng ngừa lab "ma". Hợp lệ -> Bấm "Duyệt" (chuyển sang `Active`); chưa đạt -> Bấm "Từ chối" kèm ghi chú ngắn nêu rõ lý do.
+* **Thẩm định Chuyên gia nhiếp ảnh (Photography Expert):** Admin kiểm tra hồ sơ năng lực, kinh nghiệm thực tế, portfolio tác phẩm hoặc các chứng chỉ nhiếp ảnh để duyệt cấp huy hiệu **Verified Badge**.
+* **Thẩm định Đối tác vận chuyển (Delivery Partner):** Admin kiểm tra thông tin định danh cá nhân/doanh nghiệp, giấy tờ xe hoặc thỏa thuận hợp tác logistics (Ahamove/Lalamove) trước khi cấp quyền tiếp nhận đơn giao nhận trên hệ thống.
 
 ### 5.3 Quản lý danh mục dịch vụ và Giới hạn quyền hạn Admin
 * Quản lý danh mục kỹ thuật chuẩn toàn hệ thống (chuẩn khổ film 135/120, quy trình C41, BW, ECN2, E6).
@@ -213,48 +217,45 @@
 
 ### 5.4 Dashboard báo cáo vận hành tinh gọn
 Bảng điều khiển hiển thị các số liệu vận hành cốt lõi của đồ án, không xây dựng báo cáo tài chính phức tạp:
-* Số lượng người dùng: Tổng số Khách hàng, số Film Lab đang hoạt động.
+* Số lượng người dùng: Tổng số Khách hàng, số Film Lab đang hoạt động, số Chuyên gia và Đối tác vận chuyển.
 * Số lượng đơn hàng: Đơn hoàn thành, đơn đang xử lý, đơn bị hủy.
 * Tỷ lệ hoàn thành đúng hạn cam kết SLA của từng Film Lab.
-* Danh sách công việc chờ xử lý: Số tin bán máy chờ duyệt tiền kiểm, số vụ khiếu nại chưa giải quyết.
+* Danh sách công việc chờ xử lý: Số tin bán máy chờ duyệt tiền kiểm, số hồ sơ đối tác chờ duyệt, số vụ khiếu nại chưa giải quyết.
 
-### 5.5 Phân quyền xem đơn, Quy trình khiếu nại & Hoàn tiền
+### 5.5 Phân quyền xem đơn, Quy trình khiếu nại & Thẩm quyền hoàn tiền
 * **Quyền xem thông tin đơn hàng:** Chỉ Khách hàng sở hữu đơn và Film Lab phụ trách mới xem được chi tiết đơn. Admin **tuyệt đối không tự ý xem ảnh riêng tư** trong kho của khách, trừ khi phát sinh khiếu nại tranh chấp chính thức và hai bên đồng thuận mở ảnh làm chứng cứ.
 * **Quy trình xử lý khiếu nại 3 bước:**
   1. *Khách hàng gửi khiếu nại:* Khách bấm "Khiếu nại" trên ứng dụng khi film bị hỏng hoặc file scan bị mờ/lỗi nặng.
   2. *Bước tự thương lượng:* Hệ thống chuyển thông báo để Film Lab và Khách hàng tự thương lượng giải pháp đền bù trước (đền cuộn film mới, voucher giảm giá).
   3. *Admin can thiệp phán quyết:* Nếu hai bên không thống nhất sau thương lượng, Admin vào cuộc xem xét chứng cứ ảnh chụp lúc nhận film và ảnh scan, đưa ra phán quyết đền bù; nếu Lab cố tình từ chối đền bù thỏa đáng, Admin tiến hành khóa tài khoản Lab.
-* **Chính sách và luồng hoàn tiền chi tiết:**
-  * *Điều kiện hoàn tiền:* Hủy đơn hợp lệ khi Chờ xác nhận; Lab từ chối đơn; Lab làm cháy/mất film hoàn toàn; cuộn film bị trắng (hoàn tiền scan/in); trừ tiền trùng lặp qua cổng thanh toán.
-  * *Xác nhận:* Khách gửi yêu cầu, Lab giải trình kỹ thuật, Admin hoặc Hệ thống phê duyệt theo chính sách.
-  * *Luồng trạng thái hoàn tiền:* `Refund_Requested` -> `Refund_Approved` / `Refund_Rejected` -> `Refund_Processing` -> `Refund_Success` / `Refund_Failed`.
-  * *Chuyển tiền:* Tự động hoàn thẳng về tài khoản/ví thanh toán ban đầu của khách qua API cổng thanh toán trong vòng **3–5 ngày làm việc**.
+* **Thẩm quyền phê duyệt hoàn tiền:**
+  * Hệ thống tự động duyệt hoàn tiền khi khách hủy đơn hợp lệ lúc đơn còn ở `Chờ Lab xác nhận`.
+  * Admin phê duyệt hoàn tiền sau khi giải quyết tranh chấp hoặc khi Lab xác nhận cuộn phim bị trắng (Blank Film).
 * **Nhật ký thao tác kiểm toán (Audit Log):** Hệ thống bắt buộc ghi lại mọi thao tác của Admin: *Ai làm – Lúc mấy giờ – Làm việc gì – Với đối tượng nào – Lý do.*
 
 ---
 
-## 6. SÀN TRAO ĐỔI THIẾT BỊ (MARKETPLACE - CHỨC NĂNG MỞ RỘNG)
+## 6. SÀN TRAO ĐỔI THIẾT BỊ (MARKETPLACE)
 
-> **Lưu ý về phạm vi:** Marketplace là **chức năng mở rộng** của hệ thống, được phân kỳ phát triển rõ ràng:
-> * **Phase 1 (MVP Đồ án Term Project):** Bảng tin C2C và B2C có kiểm duyệt kết nối người mua và người bán: đăng tin bán máy, tìm kiếm, nhắn tin trực tiếp để thỏa thuận giao dịch bên ngoài hoặc COD.
-> * **Phase 2 (Mở rộng trong tương lai):** Tích hợp giỏ hàng, thanh toán trực tuyến, quản lý giao vận thiết bị và đánh giá người bán tự động trên sàn.
-
-### 6.1 Đối tượng được bán sản phẩm
+### 6.1 Đối tượng tham gia mua bán
 * **Cá nhân (Customer/Photographer) - Giao dịch C2C:** Tài khoản đã xác thực Email và Số điện thoại; được đăng bán máy ảnh cơ cá nhân, ống kính đã qua sử dụng.
-* **Film Lab Owner & Chuyên gia - Giao dịch B2C:** Đăng bán cuộn film mới/outdate, hóa chất tráng, phụ kiện nhiếp ảnh, máy ảnh đã qua kiểm định kỹ thuật.
+* **Film Lab Owner & Chuyên gia - Giao dịch B2C:** Đăng bán cuộn film mới hoặc film hết hạn (outdate), hóa chất tráng, phụ kiện nhiếp ảnh, máy ảnh đã qua kiểm định kỹ thuật.
 
 ### 6.2 Danh mục sản phẩm & Quy chuẩn tin đăng (Tiền kiểm 100%)
 * **Danh mục cho phép:** Máy ảnh analog (SLR, Rangefinder, Point & Shoot, Medium Format), ống kính máy ảnh, cuộn film, phụ kiện (filter, dây đeo, bao da, flash).
 * **Quy chuẩn thông tin tin đăng:**
-  * Tên thiết bị, phân loại danh mục, giá bán niêm yết, địa điểm giao dịch.
+  * Tên thiết bị, phân loại danh mục, giá bán niêm yết, địa điểm giao dịch, số điện thoại / Zalo liên hệ.
   * Mô tả tình trạng cơ học chi tiết: Hoạt động đo sáng, tốc độ màn trập, buồng film có kín sáng không, thấu kính có trầy xước/mốc rễ tre hay không.
   * Hình ảnh thực tế: Bắt buộc cung cấp tối thiểu **3 ảnh chụp thật** rõ nét các góc cạnh của thiết bị.
 * **Cơ chế tiền kiểm 100%:** Tin đăng sau khi tạo sẽ chuyển vào hàng đợi `Chờ duyệt (Pending Approval)`. Admin kiểm duyệt hình ảnh thật và nội dung mô tả đạt chuẩn thì mới bấm duyệt cho hiển thị lên sàn.
-* **Tìm kiếm nâng cao:** Khách hàng tìm kiếm theo từ khóa, lọc theo tầm giá, danh mục thiết bị, khu vực địa lý.
+* **Tìm kiếm nâng cao & bộ lọc:** Khách hàng tìm kiếm theo từ khóa, lọc theo tầm giá, danh mục thiết bị, khu vực địa lý.
 
-### 6.3 Nhắn tin trao đổi và Quy trình mua bán (MVP)
-* Tích hợp tính năng **Nhắn tin trực tiếp giữa người mua và người bán** ngay trên ứng dụng để hai bên trao đổi chi tiết tình trạng thiết bị, xem thêm hình ảnh/video test máy và hẹn địa điểm giao dịch trực tiếp hoặc gửi COD bưu điện.
-* **Bước đặt mua & Đánh giá uy tín:** Người mua bấm "Đặt mua" / liên hệ trên tin đăng; sau khi hoàn tất giao dịch, người mua được đánh giá số sao và nhận xét cho người bán để tạo dựng độ uy tín cộng đồng.
+### 6.3 Phương thức liên hệ, Giao dịch và Đánh giá người bán
+* **Liên hệ trực tiếp qua Số điện thoại / Zalo:**
+  * Người bán cung cấp Số điện thoại / Zalo chính chủ trên mỗi tin đăng thiết bị.
+  * Người mua bấm nút **"Liên hệ qua SĐT / Zalo"** trên tin đăng để gọi điện hoặc nhắn tin Zalo trao đổi trực tiếp tình trạng thiết bị, xem thêm hình ảnh/video test máy và hẹn phương thức giao dịch. Hệ thống không tích hợp khung chat riêng nhằm tinh gọn vận hành.
+* **Quy trình giao dịch:** Người mua bấm "Đặt mua" hoặc liên hệ trên tin đăng -> Hai bên thống nhất phương thức nhận hàng trực tiếp hoặc gửi qua bưu điện (COD).
+* **Đánh giá uy tín người bán:** Sau khi hoàn tất giao dịch, người mua được chấm điểm (1–5 sao) và viết nhận xét về độ trung thực của người bán để xây dựng cộng đồng mua bán an toàn, minh bạch.
 
 ---
 
@@ -262,16 +263,17 @@ Bảng điều khiển hiển thị các số liệu vận hành cốt lõi củ
 
 | Chức năng chính | Customer | Film Lab | Expert | Delivery Partner | System Admin |
 |---|:---:|:---:|:---:|:---:|:---:|
-| Đăng ký, quản lý tài khoản cá nhân | Có | Có (Chờ duyệt) | Có | Có | Có |
+| Đăng ký, quản lý tài khoản cá nhân | Có | Có (Chờ duyệt) | Có (Chờ duyệt) | Có (Chờ duyệt) | Có |
 | Tìm kiếm, so sánh & Đặt dịch vụ tráng/scan | Có | - | Có | - | - |
-| Cấu hình gói dịch vụ & Đổi giá Lab | - | Có (Chỉ Owner) | - | - | Chỉ ẩn dịch vụ vi phạm |
+| Cấu hình gói dịch vụ & Đổi giá Lab | - | Có | - | - | Chỉ ẩn dịch vụ vi phạm |
 | Tiếp nhận đơn & Cập nhật tiến độ tráng/scan | - | Có | - | - | Xem / Can thiệp khiếu nại |
 | Upload file scan trả khách lên Cloud | - | Có | - | - | Không (Bảo mật riêng tư) |
 | Quản lý Digital Film Archive cá nhân | Toàn quyền kho mình | - | Toàn quyền kho mình | - | Không (Chỉ xem khi mở khiếu nại) |
 | Nhận đơn pickup & Cập nhật vị trí vận chuyển | - | - | - | Có | Tra cứu sự cố |
 | Đăng tin mua bán trên Marketplace | Có (Chờ duyệt) | Có (Chờ duyệt) | Có (Chờ duyệt) | - | Duyệt tiền kiểm / Gỡ tin |
-| Nhắn tin mua bán & Đánh giá người bán | Có | Có | Có | - | - |
+| Liên hệ mua bán qua SĐT/Zalo & Đánh giá | Có | Có | Có | - | - |
 | Đăng bài viết chia sẻ, thảo luận cộng đồng | Có (Đã xác thực) | Có (Đã xác thực) | Có (Ưu tiên hiển thị) | - | Kiểm duyệt hậu kiểm (Ẩn/Gỡ) |
+| Tương tác Like, Bookmark, Follow tác giả | Có | Có | Có | - | - |
 | Tổ chức Workshop & Photowalk | Thảo luận | Thảo luận | Có (Tạo / Quản lý) | - | Kiểm duyệt nội dung |
-| Duyệt mở Lab, khóa tài khoản vi phạm, Audit Log | - | - | - | - | Có (Theo quy định) |
-| Phán quyết đền bù khiếu nại | - | Tự thương lượng trước | - | - | Phán quyết khi thương lượng bất thành |
+| Duyệt đối tác (Lab, Expert, Delivery), Audit Log | - | - | - | - | Có (Theo quy định) |
+| Phán quyết đền bù & Phê duyệt hoàn tiền | - | Tự thương lượng trước | - | - | Phán quyết & Phê duyệt |
