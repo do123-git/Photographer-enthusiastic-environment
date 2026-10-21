@@ -26,7 +26,6 @@
   * Mật khẩu tối thiểu 8 ký tự, bao gồm cả chữ và số.
   * Email đúng định dạng tiêu chuẩn.
   * Số điện thoại đúng định dạng 10 chữ số.
-* **Xác thực tài khoản:** Hệ thống gửi mã OTP qua Email hoặc SMS để kích hoạt tài khoản chính thức, ngăn chặn tài khoản rác.
 * **Xử lý tài khoản đã tồn tại:** Nếu Email đã tồn tại trong hệ thống, báo lỗi ngay: *"Email này đã được đăng ký. Vui lòng đăng nhập hoặc sử dụng chức năng Quên mật khẩu."*
 * **Quên mật khẩu:** Khách nhập Email/SĐT đã đăng ký -> Hệ thống gửi liên kết đặt lại mật khẩu (có thời hạn 15 phút) hoặc mã OTP để tạo mật khẩu mới.
 * **Quy định chỉnh sửa thông tin:**
@@ -80,16 +79,13 @@
 * **Chính sách hoàn tiền & Nơi tra cứu:**
   * *Điều kiện hoàn tiền:* Hủy đơn hợp lệ khi Chờ xác nhận; Lab từ chối hoặc hủy đơn do sự cố máy móc; Lab làm thất lạc/hư hỏng film do lỗi kỹ thuật; cuộn film bị trắng (Blank Film - hoàn 100% phí scan/in, giữ lại phí tráng); trừ tiền trùng lặp qua cổng thanh toán.
   * *Tiến độ hoàn tiền:* Sau khi được phê duyệt, tiền hoàn thẳng về tài khoản/ví ban đầu trong vòng **3–5 ngày làm việc**.
-  * *Tra cứu tiến độ hoàn tiền:* Khách hàng và Film Lab có thể theo dõi trực tiếp trạng thái hoàn tiền ngay tại mục chi tiết đơn hàng (các trạng thái: Đang xử lý hoàn tiền -> Đã hoàn tiền thành công / Từ chối hoàn tiền).
+  * *Tra cứu giao dịch hoàn tiền:* Khách hàng và Film Lab có thể tra cứu chi tiết tiến trình tại mục chi tiết đơn hàng hoặc lịch sử giao dịch tại **`Refund_Transactions`** (các trạng thái: `Refund_Requested` -> `Refund_Approved` / `Refund_Rejected` -> `Refund_Processing` -> `Refund_Success` / `Refund_Failed`).
 
 ### 1.5 Tải và Quản lý kho lưu trữ số (Digital Film Archive)
 * **Nguyên tắc cốt lõi:** Kết quả chính của dịch vụ là **File scan số** chất lượng cao được tải lên Cloud Storage an toàn và tự động nạp vào **Digital Film Archive** của khách hàng; việc giao nhận vật lý chỉ phát sinh khi khách có nhu cầu.
-* **Quy tắc lưu trữ:**
-  * *Lưu trữ tạm tại Lab:* File scan trên hệ thống đám mây của tiệm được cam kết lưu trữ tối thiểu **60 ngày** để khách tải về máy tính/điện thoại; cuộn film âm bản gốc giữ tại tiệm 15–30 ngày để khách đến nhận lại (nếu có nhu cầu).
-  * *Kho lưu trữ cá nhân (Digital Film Archive):* Nơi lưu trữ lâu dài ảnh scan gốc chất lượng cao không bị nén, gắn liền với tài khoản của khách hàng để xem lại, tải về và quản lý bộ sưu tập ảnh bất cứ lúc nào.
+* **Nhận file scan:** Lab upload file scan lên cloud storage, hệ thống tự động đồng bộ vào Archive và gửi thông báo đẩy để khách xem, tải file gốc chất lượng cao không nén.
 * **Quyền riêng tư mặc định:** Kho ảnh mặc định ở chế độ riêng tư, chỉ chủ tài khoản mới xem được ảnh. Quản trị viên không có quyền truy cập ảnh của khách trừ khi có khiếu nại tranh chấp.
 * **Hệ thống Metadata đi kèm ảnh:**
-  * Tự động từ Lab: Tên Film Lab, ngày scan, thông số scan (máy scan, độ phân giải, định dạng JPG/TIFF).
   * Khách hàng tự bổ sung: Loại cuộn film (VD: Kodak Portra 400), máy ảnh (VD: Canon AE-1), ống kính, ngày chụp, địa điểm, cách xử lý (Push/Pull), ghi chú cá nhân.
 * **Chức năng quản lý Archive:**
   * Xem ảnh dạng lưới (Gallery View) hoặc toàn màn hình.
@@ -132,8 +128,8 @@
 * **Thời điểm tải file scan:** Diễn ra sau khi hoàn tất công đoạn Scan và Kiểm tra chất lượng (QC) đạt chuẩn (không lệch frame, không sọc sensor, đủ số kiểu, đúng chuẩn JPG/TIFF).
 * **Cơ chế tải file và bảo mật:** File scan chất lượng cao được tải lên Cloud Storage an toàn và tự động nạp thẳng vào Digital Film Archive của khách hàng; hệ thống tự động gửi thông báo đẩy (Push Notification) và Email cho khách.
 * **Xử lý tình huống bất thường khi tải file:**
-  * *Upload thất bại / rớt mạng:* Hỗ trợ cơ chế tải tiếp đoạn bị gián đoạn (Resumable Upload), tiệm bấm "Thử lại" để tiếp tục mà không phải tải lại từ đầu.
-  * *Tải nhầm file scan của khách khác:* Cơ chế thu hồi và thay thế file chuẩn xác trong vòng 24 giờ; tự động thu hồi ảnh nhầm trong Archive của khách, cập nhật ảnh đúng, ghi nhật ký kiểm toán và gửi thông báo đính chính cho khách.
+  * *Upload thất bại / rớt mạng:* Áp dụng cơ chế **Resumable Upload**; nhân viên bấm "Thử lại" để tải tiếp đoạn bị gián đoạn.
+  * *Tải nhầm file scan của khách khác:* Cơ chế **Thu hồi & Ghi đè (Revoke & Replace)** trong vòng 24 giờ; thu hồi link cũ trong Archive của khách bị nhầm, cập nhật bản đúng, ghi Audit Log và gửi thông báo đính chính cho khách.
 
 ### 2.5 Lịch sử đơn hàng và Báo cáo vận hành
 * **Dữ liệu Lab xem lại ở đơn đã hoàn thành:**
@@ -160,7 +156,6 @@
 ### 3.3 Tương tác cộng đồng & Báo cáo vi phạm
 * **Tính năng tương tác:**
   * **Like:** Bày tỏ yêu thích đối với bài viết, hình ảnh chia sẻ của thành viên khác.
-  * **Bookmark:** Lưu trữ các bài viết kỹ thuật, bài hướng dẫn hay vào danh mục cá nhân để tiện đọc lại khi cần.
   * **Follow:** Theo dõi các Chuyên gia nhiếp ảnh hoặc Film Lab yêu thích để nhận thông báo sớm nhất khi có bài viết hoặc sự kiện mới.
 * **Báo cáo vi phạm phía người dùng:** Mỗi bài viết và bình luận đều có nút **"Báo cáo vi phạm"** để người dùng báo cáo các nội dung spam, ngôn từ xúc phạm, thông tin sai lệch kỹ thuật hoặc vi phạm quy định cộng đồng.
 
@@ -236,26 +231,21 @@ Bảng điều khiển hiển thị các số liệu vận hành cốt lõi củ
 ---
 
 ## 6. SÀN TRAO ĐỔI THIẾT BỊ (MARKETPLACE)
-
-### 6.1 Đối tượng tham gia mua bán
+### 6.1 Đối tượng được bán sản phẩm
 * **Cá nhân (Customer/Photographer) - Giao dịch C2C:** Tài khoản đã xác thực Email và Số điện thoại; được đăng bán máy ảnh cơ cá nhân, ống kính đã qua sử dụng.
-* **Film Lab Owner & Chuyên gia - Giao dịch B2C:** Đăng bán cuộn film mới hoặc film hết hạn (outdate), hóa chất tráng, phụ kiện nhiếp ảnh, máy ảnh đã qua kiểm định kỹ thuật.
+* **Film Lab Owner & Chuyên gia - Giao dịch B2C:** Đăng bán cuộn film mới/outdate, hóa chất tráng, phụ kiện nhiếp ảnh, máy ảnh đã qua kiểm định kỹ thuật.
 
 ### 6.2 Danh mục sản phẩm & Quy chuẩn tin đăng (Tiền kiểm 100%)
 * **Danh mục cho phép:** Máy ảnh analog (SLR, Rangefinder, Point & Shoot, Medium Format), ống kính máy ảnh, cuộn film, phụ kiện (filter, dây đeo, bao da, flash).
 * **Quy chuẩn thông tin tin đăng:**
-  * Tên thiết bị, phân loại danh mục, giá bán niêm yết, địa điểm giao dịch, số điện thoại / Zalo liên hệ.
+  * Tên thiết bị, phân loại danh mục, giá bán niêm yết, địa điểm giao dịch.
   * Mô tả tình trạng cơ học chi tiết: Hoạt động đo sáng, tốc độ màn trập, buồng film có kín sáng không, thấu kính có trầy xước/mốc rễ tre hay không.
   * Hình ảnh thực tế: Bắt buộc cung cấp tối thiểu **3 ảnh chụp thật** rõ nét các góc cạnh của thiết bị.
 * **Cơ chế tiền kiểm 100%:** Tin đăng sau khi tạo sẽ chuyển vào hàng đợi `Chờ duyệt (Pending Approval)`. Admin kiểm duyệt hình ảnh thật và nội dung mô tả đạt chuẩn thì mới bấm duyệt cho hiển thị lên sàn.
-* **Tìm kiếm nâng cao & bộ lọc:** Khách hàng tìm kiếm theo từ khóa, lọc theo tầm giá, danh mục thiết bị, khu vực địa lý.
+* **Tìm kiếm nâng cao:** Khách hàng tìm kiếm theo từ khóa, lọc theo tầm giá, danh mục thiết bị, khu vực địa lý.
 
-### 6.3 Phương thức liên hệ, Giao dịch và Đánh giá người bán
-* **Liên hệ trực tiếp qua Số điện thoại / Zalo:**
-  * Người bán cung cấp Số điện thoại / Zalo chính chủ trên mỗi tin đăng thiết bị.
-  * Người mua bấm nút **"Liên hệ qua SĐT / Zalo"** trên tin đăng để gọi điện hoặc nhắn tin Zalo trao đổi trực tiếp tình trạng thiết bị, xem thêm hình ảnh/video test máy và hẹn phương thức giao dịch. Hệ thống không tích hợp khung chat riêng nhằm tinh gọn vận hành.
-* **Quy trình giao dịch:** Người mua bấm "Đặt mua" hoặc liên hệ trên tin đăng -> Hai bên thống nhất phương thức nhận hàng trực tiếp hoặc gửi qua bưu điện (COD).
-* **Đánh giá uy tín người bán:** Sau khi hoàn tất giao dịch, người mua được chấm điểm (1–5 sao) và viết nhận xét về độ trung thực của người bán để xây dựng cộng đồng mua bán an toàn, minh bạch.
+### 6.3 Nhắn tin trao đổi và Quy trình mua bán (MVP)
+*  Liên hệ trực tiếp giữa người mua và người bán qua Số điện thoại / Zalo (không tích hợp hệ thống chat riêng).
 
 ---
 
@@ -265,13 +255,13 @@ Bảng điều khiển hiển thị các số liệu vận hành cốt lõi củ
 |---|:---:|:---:|:---:|:---:|:---:|
 | Đăng ký, quản lý tài khoản cá nhân | Có | Có (Chờ duyệt) | Có (Chờ duyệt) | Có (Chờ duyệt) | Có |
 | Tìm kiếm, so sánh & Đặt dịch vụ tráng/scan | Có | - | Có | - | - |
-| Cấu hình gói dịch vụ & Đổi giá Lab | - | Có | - | - | Chỉ ẩn dịch vụ vi phạm |
+| Cấu hình gói dịch vụ & Đổi giá Lab | - | Có (Chỉ Owner) | - | - | Chỉ ẩn dịch vụ vi phạm |
 | Tiếp nhận đơn & Cập nhật tiến độ tráng/scan | - | Có | - | - | Xem / Can thiệp khiếu nại |
 | Upload file scan trả khách lên Cloud | - | Có | - | - | Không (Bảo mật riêng tư) |
 | Quản lý Digital Film Archive cá nhân | Toàn quyền kho mình | - | Toàn quyền kho mình | - | Không (Chỉ xem khi mở khiếu nại) |
 | Nhận đơn pickup & Cập nhật vị trí vận chuyển | - | - | - | Có | Tra cứu sự cố |
 | Đăng tin mua bán trên Marketplace | Có (Chờ duyệt) | Có (Chờ duyệt) | Có (Chờ duyệt) | - | Duyệt tiền kiểm / Gỡ tin |
-| Liên hệ mua bán qua SĐT/Zalo & Đánh giá | Có | Có | Có | - | - |
+| Nhắn tin mua bán & Đánh giá người bán | Có | Có | Có | - | - |
 | Đăng bài viết chia sẻ, thảo luận cộng đồng | Có (Đã xác thực) | Có (Đã xác thực) | Có (Ưu tiên hiển thị) | - | Kiểm duyệt hậu kiểm (Ẩn/Gỡ) |
 | Tương tác Like, Bookmark, Follow tác giả | Có | Có | Có | - | - |
 | Tổ chức Workshop & Photowalk | Thảo luận | Thảo luận | Có (Tạo / Quản lý) | - | Kiểm duyệt nội dung |
