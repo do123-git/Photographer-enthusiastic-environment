@@ -243,4 +243,4 @@ sequenceDiagram
         end
     end
     Note over LAB,AD: Lab cố tình từ chối đền bù thỏa đáng thì Admin khóa tài khoản Lab
-```
+``` 
